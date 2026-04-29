@@ -16,3 +16,4 @@ docker history pogoda-app
 
 Polecenie do sprawdzenia rozmiaru:
 docker images
+
