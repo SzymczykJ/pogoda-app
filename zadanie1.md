@@ -4,6 +4,8 @@
 ![Lublin](images/lublin.png)
 
 1. Część obowiązkowa:
+
+   
 Plik server.js odpowiada za działanie aplikacji serwerowej w Node.js (Express). Po uruchomieniu serwera wyświetlane są w logach: data uruchomienia, autor oraz port, co spełnia wymaganie punktu a. Aplikacja udostępnia endpoint /weather, który przyjmuje współrzędne miasta i pobiera aktualną pogodę z API Open-Meteo, a następnie zwraca ją do klienta. Dane są wyświetlane w interfejsie użytkownika.
 ![Server](images/server.png)
 
