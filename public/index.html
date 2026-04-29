@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <title>Pogoda</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #e9d5ff, #c4b5fd);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #4c1d95;
+    }
+
+    .card {
+      background: #ffffff;
+      width: 360px;
+      padding: 30px;
+      border-radius: 25px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+      text-align: center;
+    }
+
+    h1 {
+      color: #7c3aed;
+      margin-bottom: 10px;
+    }
+
+    .emoji {
+      font-size: 50px;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      font-size: 14px;
+      color: #6b21a8;
+      margin-bottom: 25px;
+    }
+
+    select {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #c4b5fd;
+      border-radius: 15px;
+      font-size: 16px;
+      margin-bottom: 15px;
+      background: #f5f3ff;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 15px;
+      background: #8b5cf6;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    button:hover {
+      background: #7c3aed;
+      transform: scale(1.03);
+    }
+
+    #result {
+      margin-top: 25px;
+      padding: 15px;
+      background: #ede9fe;
+      border-radius: 18px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #5b21b6;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="card">
+    <div class="emoji">☁️</div>
+    <h1>Pogoda</h1>
+    <p class="subtitle">Sprawdź, jak bardzo słaba pogoda jest dzisiaj w Twojej okolicy</p>
+
+    <select id="city">
+      <option value="52.23,21.01">Warszawa</option>
+      <option value="50.06,19.94">Kraków</option>
+      <option value="51.24,22.56">Lublin</option>
+    </select>
+
+    <button onclick="getWeather()">Sprawdź pogodę</button>
+
+    <p id="result">☁️ Wybierz miasto</p>
+  </div>
+
+  <script>
+    async function getWeather() {
+      const value = document.getElementById("city").value;
+      const cityName = document.getElementById("city").selectedOptions[0].text;
+      const [lat, lon] = value.split(",");
+
+      const res = await fetch(`/weather?lat=${lat}&lon=${lon}`);
+      const data = await res.json();
+
+      document.getElementById("result").innerText =
+        "🌡️ " + cityName + ": " + data.temperature_2m + " °C";
+    }
+  </script>
+
+</body>
+</html>
