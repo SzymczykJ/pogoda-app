@@ -7,7 +7,6 @@ COPY package*.json ./
 
 RUN npm ci --omit=dev
 
-
 # Etap 2: obraz końcowy
 FROM node:20-alpine AS runner
 
