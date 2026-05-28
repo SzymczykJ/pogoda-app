@@ -1,5 +1,5 @@
 # Etap 1: instalacja zależności
-FROM node:20-alpine AS deps
+FROM node:22-alpine AS deps
 
 WORKDIR /app
 
@@ -8,7 +8,7 @@ COPY package*.json ./
 RUN npm ci --omit=dev
 
 # Etap 2: obraz końcowy
-FROM node:20-alpine AS runner
+FROM node:22-alpine AS runner
 
 WORKDIR /app
 
@@ -18,6 +18,9 @@ LABEL org.opencontainers.image.description="Prosta aplikacja pogodowa Node.js Ex
 
 ENV NODE_ENV=production
 ENV PORT=8080
+
+RUN rm -rf /usr/local/lib/node_modules/npm \
+    && rm -f /usr/local/bin/npm /usr/local/bin/npx
 
 COPY --from=deps /app/node_modules ./node_modules
 COPY package*.json ./
@@ -31,4 +34,4 @@ HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
 
 USER node
 
-CMD ["npm", "start"]
+CMD ["node", "server.js"]
